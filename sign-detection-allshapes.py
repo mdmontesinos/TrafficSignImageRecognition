@@ -77,8 +77,6 @@ def main():
         all_regions_image = img.copy()
         signs_image = img.copy()
 
-        rect_padding = 10
-
         # Almacenamos el area de la imagen
         image_area = len(img)*len(img[0])
 
