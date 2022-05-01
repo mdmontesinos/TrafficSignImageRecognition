@@ -12,7 +12,7 @@ IMG_HEIGHT = 30
 def main():
 
     # Rutas necesarias
-    model_file = "model.h5"
+    model_file = "model.h5" # Modelo entrenado con trafficSign-modelTrainer.py y el dataset GTSRB
     image_directory = "imagenes-entrada"
     result_directory = "resultados"
     category_names_file = "nombresCategorias.csv"
