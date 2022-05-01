@@ -35,8 +35,8 @@ Gtsrb Category Id, Traffic Sign Name
 33,Obligatorio Derecha
 34,Obligatorio Izquierda
 35,Obligatorio Recto
-36,Obligatorio Recto,Derecha
-37,Obligatorio Recto,Izquierda
+36,Obligatorio Recto o Derecha
+37,Obligatorio Recto o Izquierda
 38,Obligatorio Diag. Derecha
 39,Obligatorio Diag. Izquierda
 40,Glorieta

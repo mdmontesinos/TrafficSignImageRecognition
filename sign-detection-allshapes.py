@@ -1,5 +1,3 @@
-import math
-from msilib.schema import TextStyle
 import cv2 as cv2
 import numpy as np
 import os
@@ -71,19 +69,19 @@ def main():
         canny = cv2.Canny(gaussianBlur, 150, 200)
         cv2.imwrite(os.path.join(resultPath, "canny.png"), canny)
 
-        # Obtenemos los contornos de diversas formas a partir de la imagen con los bordes detectador por Canny
-        contours,hierarchy = cv2.findContours(canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
         all_regions_image = img.copy()
         signs_image = img.copy()
 
         # Almacenamos el area de la imagen
         image_area = len(img)*len(img[0])
 
+        # Obtenemos los contornos de diversas formas a partir de la imagen con los bordes detectados por Canny
+        contours,hierarchy = cv2.findContours(canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
         # Iteramos por cada uno de los contornos detectados en la imagen
         for i in range(1, len(contours)):
 
-            # Si el area del contorno es menor que el 15% del area total de la imagen, lo obviamos
+            # Si el area del contorno es menor que el 1,5% del area total de la imagen, lo obviamos
             if (cv2.contourArea(contours[i]) < 0.015*image_area):
                 continue
 
@@ -97,11 +95,13 @@ def main():
                 # Dibujamos un triangulo verde
                 cv2.drawContours(all_regions_image,[approx],0,(0,255,0),2)  
             elif len(approx)==4:
-                # Dibujamos un cuadrado rojo
+                # Dibujamos un cuadrilatero rojo
                 cv2.drawContours(all_regions_image,[approx],0,(0,0,255),2)
             elif len(approx) > 12:
                 # Dibujamos un circulo amarillo
                 cv2.drawContours(all_regions_image,[contours[i]],0,(0,255,255),2)
+            else:
+                continue
 
             # Obtenemos el rectangulo que contiene al contorno
             x,y,w,h = cv2.boundingRect(approx)
@@ -121,7 +121,7 @@ def main():
             # Dibujamos el rectangulo en la imagen que contiene todas las regiones
             cv2.rectangle(all_regions_image,(lower_x_bound,lower_y_bound),(upper_x_bound,upper_y_bound),(0,0,0),2)
 
-            # Extraemos la forma rectangular como una nueva imagen
+            # Extraemos de la imagen original la forma rectangular como una nueva imagen
             roi = img[lower_y_bound:upper_y_bound, lower_x_bound:upper_x_bound]
             cv2.imwrite(os.path.join(resultPath, "regions", str(i) + ".png"), roi)
 
@@ -133,15 +133,15 @@ def main():
             # La id asignada sera aquella con mayor probabilidad dentro de la distribucion devuelta por el tensor
             sign_id = tf.argmax(result_tensor, 1)
 
+            # Obtenemos el nombre de la señal a partir del csv
+            sign_name = category_names_dict.get(str(sign_id.numpy()[0]))
+
             # Debug
             print(f"Resulting tensor: {result_tensor}")
-            print(f"Resulting sign: {sign_id}")
+            print(f"Resulting sign: {sign_id}, {sign_name}")
             sorted_ids = tf.argsort(result_tensor,1,'DESCENDING')
             print(f"Sorted tensor: {sorted_ids}")
             #
-
-            # Obtenemos el nombre de la señal a partir del csv
-            sign_name = category_names_dict.get(str(sign_id.numpy()[0]))
 
             # Escribimos en una copia de la imagen la señal detectada, con el nombre correspondiente
 
