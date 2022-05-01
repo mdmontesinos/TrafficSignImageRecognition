@@ -1,0 +1,44 @@
+Gtsrb Category Id, Traffic Sign Name 
+0,Velocidad Maxima 20
+1,Velocidad Maxima 30
+2,Velocidad Maxima 50
+3,Velocidad Maxima 60
+4,Velocidad Maxima 70
+5,Velocidad Maxima 80
+6,Fin Velocidad Maxima 80
+7,Velocidad Maxima 100
+8,Velocidad Maxima 120
+9,Prohibido Adelantar
+10,Prohibido Adelantar Camiones
+11,Prioridad en Interseccion
+12,Calzada con Prioridad
+13,Cede al Paso
+14,Stop
+15,Prohibido Todos Vehiculos
+16,Prohibido Camiones
+17,Direccion Prohibida
+18,Peligro
+19,Curva Izquierda
+20,Curva Derecha
+21,Curvas Sucesivas
+22,Resalto
+23,Suelo Deslizante
+24,Estrechamiento
+25,Obras
+26,Semaforo
+27,Peatones
+28,Niños
+29,Ciclistas
+30,Nieve
+31,Fauna Salvaje
+32,Fin Prohibiciones
+33,Obligatorio Derecha
+34,Obligatorio Izquierda
+35,Obligatorio Recto
+36,Obligatorio Recto,Derecha
+37,Obligatorio Recto,Izquierda
+38,Obligatorio Diag. Derecha
+39,Obligatorio Diag. Izquierda
+40,Glorieta
+41,Fin Prohibido Adelantar
+42,Fin Prohibido Adelantar Camiones
