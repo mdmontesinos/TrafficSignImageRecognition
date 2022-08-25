@@ -1,3 +1,5 @@
 opencv-python
 scikit-learn
 tensorflow
+tf2onnx
+onnxmltools

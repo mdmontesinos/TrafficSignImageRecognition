@@ -4,6 +4,9 @@ import os
 import sys
 import tensorflow as tf
 
+from tensorflow.python.keras.backend import get_session
+import onnxmltools
+
 from sklearn.model_selection import train_test_split
 
 EPOCHS = 10
@@ -17,7 +20,7 @@ def main():
 
     # Check command-line arguments
     if len(sys.argv) not in [2, 3]:
-        sys.exit("Usage: python trafficSign-modelTrainer.py data_directory [model.h5]")
+        sys.exit("Usage: python trafficSign-modelTrainer.py data_directory [model]")
 
     # Get image arrays and labels for all image files
     images, labels = load_data(sys.argv[1])
@@ -41,8 +44,12 @@ def main():
     if len(sys.argv) == 3:
         filename = sys.argv[2]
         model.save(filename)
-        print(f"Model saved to {filename}.")
+        model.save(f"{filename}.h5")
+        onnx_model = onnxmltools.convert_keras(model)
+        onnxmltools.utils.save_model(onnx_model, f"{filename}.onnx")
+        print(f"Model saved to .pb, .h5 and .onnx formats.")
 
+    
 
 def load_data(data_dir):
     """
